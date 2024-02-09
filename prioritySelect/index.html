@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Dinâmico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <form class="dynamic-form" onsubmit="validateForm()">
+        <label for="selecionarPrioridade">Selecione a Prioridade:</label>
+        <select class="priority-select" onchange="updatePriority()">
+            <option value="">Motivo</option>
+            <option value="cotacao">Cotação</option>
+            <option value="sugestao">Sugestao</option>
+            <option value="elogio">Elogio</option>
+            <option value="reclamacao">Reclamção</option>
+            <option value="denuncia">Denúncia</option>
+            <option value="trabalheConosco">Trabalhe Conosco</option>
+            <option value="outros">Outros</option>
+        </select>
+
+        <input type="text" class="task-input" id="task-input" placeholder="Tarefa 1:">
+
+        <input type="text" class="task-input" id="task-input" placeholder="Tarefa 2:">
+
+        <textarea name="mensagem" id="mensagem" class="mensagem" cols="30" rows="10" placeholder="Mensagem"></textarea>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        function updatePriority() {
+            var selecionarPrioridade = document.querySelector('.priority-select');
+            var taskInputs = document.querySelectorAll('.task-input');
+            var mensagem = document.querySelectorAll('.mensagem');
+
+            // Obter o valor selecionado
+            var selectedPriority = selecionarPrioridade.value;
+
+            // Verificar a prioridade e definir o atributo 'required' nos campos de texto
+            if (selectedPriority === 'cotacao') {
+                taskInputs.forEach(function(taskInput) {
+                    taskInput.setAttribute('required', 'required');
+                });
+            } else {
+                taskInputs.forEach(function(taskInput) {
+                    taskInput.removeAttribute('required');
+                });
+            }
+
+            if (selectedPriority === 'trabalheConosco') {
+                mensagem.forEach(function(msg) {
+                    msg.setAttribute('placeholder', 'Nova Mensagem');
+                });
+            } else {
+                mensagem.forEach(function(msg) {
+                    msg.setAttribute('placeholder', 'Mensagem');
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
